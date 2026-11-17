@@ -1,7 +1,6 @@
-![Azure](https://img.shields.io/badge/Microsoft-Azure-0078D4?logo=microsoftazure&logoColor=white)
-![Terraform](https://img.shields.io/badge/Terraform-1.15-7B42BC?logo=terraform&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3.13+-blue?logo=python&logoColor=white)
-![PowerShell](https://img.shields.io/badge/PowerShell-7-5391FE?logo=powershell&logoColor=white)
+![Platform](https://img.shields.io/badge/Microsoft-Azure-0078D4?logo=microsoftazure&logoColor=white)
+![Component](https://img.shields.io/badge/Azure-Functions-0062AD?logo=azurefunctions&logoColor=white)
+![Language](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
 ![CI](https://github.com/AdrianStudio/cloud-ops-playbooks/actions/workflows/ci.yml/badge.svg)
 ![Status](https://img.shields.io/badge/Status-In%20Progress-orange)
 
@@ -9,13 +8,23 @@
 
 Automated remediation scripts, Terraform modules, and infrastructure playbooks for common Cloud and Sysadmin pain points. Designed by autonomous agents and merged by a human Tech Lead.
 
+Can an AI agent read a Sysadmin's complaint on Reddit and write a production ready mitigation script before the human finishes their coffee?
+
+Spoiler: yes, if you constrain it strictly enough.
+
 ---
 
-## Scenario
+## Why This Exists
 
-A regional Managed Service Provider (MSP) managing multiple client environments. They face a constant flood of critical vulnerabilities (CVEs) and infrastructure misconfigurations. Limited budget. No dedicated security team. One clear compliance requirement: rapid response to high severity alerts without breaking production systems.
+I did not build this repository out of boredom. I built it to solve a specific friction I saw in the tech landscape. 
 
-The default approach in most environments would be reacting to tickets manually, applying patches by hand, and deploying fragmented ad hoc scripts. This project shows what an automated, intelligence-driven remediation repository looks like when built with rigorous engineering standards.
+On one side, Sysadmins and Cloud Engineers on communities like Reddit and Hacker News are drowning in real, immediate problems: sudden zero day CVEs, active directory nightmares, and infrastructure misconfigurations. On the other side, the internet is flooded with generic, low effort AI code that breaks in production or ignores basic security practices.
+
+**The Idea:** I wanted to bridge that gap. I wondered if I could build a completely autonomous "virtual office" that listens to the internet, identifies high friction technical pain points, and acts as a dedicated DevOps Engineer to solve them. 
+
+**The Execution:** I built a private Azure Serverless backend (FUBANX) that runs daily. It ingests thousands of posts, filters out the noise, and scores the "pain level" of each problem. If a problem scores an 8 or higher, my autonomous Agent Engineer kicks in. It decides on the best tool (Python, Terraform, or PowerShell), writes the code, audits itself through a strict QA loop to remove "AI smells", and opens a Pull Request here. 
+
+I act as the Tech Lead. I review the logic, verify the safety, and merge the code.
 
 ---
 
@@ -23,42 +32,25 @@ The default approach in most environments would be reacting to tickets manually,
 
 ![Architecture diagram](./images/architecture.png)
 
-This repository serves as the public output state for a private, autonomous Azure architecture. An external intelligence pipeline evaluates real world technical pain points, triggers an automated engineer agent to write the remediation code (Python, Terraform, or PowerShell), and opens a Pull Request here. The human Tech Lead reviews, tests, and merges the final solution.
+This repository serves as the public output state for the private Azure architecture. The external intelligence pipeline evaluates real world technical pain points, triggers the automated engineer agent, and opens a Pull Request. The human Tech Lead reviews, tests, and merges the final solution.
 
 ---
 
-## Infrastructure
+## What I Built
 
-### N-Able CVE Mitigation (Python)
-
-A Python playbook to automatically interact with the N-Able API, identify endpoints vulnerable to specific CVEs, and issue isolation commands. Built with safety defaults.
-
-### Azure Storage Secure Baseline (Terraform)
-
-A reusable Terraform module to enforce secure defaults on Azure Storage Accounts, disabling public access and enforcing TLS 1.2 minimums across client environments.
-
-### Active Directory Offboarding (PowerShell)
-
-A PowerShell utility to safely disable AD users, strip group memberships, and log the offboarding process for compliance audits.
+| Component | Resource | Purpose |
+| --- | --- | --- |
+| `scripts/python/` | Python playbooks | Utilities for API interactions and diagnostics, such as CVE mitigation. |
+| `scripts/powershell/` | PowerShell scripts | Windows Server and Active Directory management. |
+| `terraform/modules/` | Terraform code | Reusable IaC components for Azure infrastructure and secure baselines. |
 
 ---
 
 ## Security
 
-- Zero hardcoded credentials. All scripts expect environment variables or secure credential injection.
-- Dry run by default. All destructive scripts require explicit flags (e.g., `--apply`) to execute changes.
-- Least privilege execution.
-
----
-
-## Project Structure
-
-| Directory | Purpose |
-| --- | --- |
-| `scripts/python/` | Python utilities for API interactions and diagnostics |
-| `scripts/powershell/` | PowerShell scripts for Windows Server and AD management |
-| `terraform/modules/` | Reusable IaC components for Azure infrastructure |
-| `docs/` | Extended technical documentation and ADRs |
+- **Zero hardcoded credentials.** All scripts expect environment variables or secure credential injection.
+- **Dry run by default.** All destructive scripts require explicit flags (e.g., `--apply`) to execute changes.
+- **Least privilege execution.**
 
 ---
 
@@ -68,33 +60,20 @@ The continuous integration workflow runs on every Pull Request. It executes synt
 
 ---
 
-## Deployment
-
-Scripts are designed to be run individually by operators or integrated into larger deployment pipelines.
-
-1. `export NABLE_API_TOKEN="your_token_here"`
-2. `python scripts/python/isolate_vulnerable_endpoints.py --apply`
-
-## Cleanup
-
-For infrastructure deployed via the Terraform modules:
-
-`tofu destroy -var-file=envs/dev.tfvars`
-
----
-
 ## Design Decisions
 
 **Why manual review instead of automatic merges.** Autonomous systems can generate confident but incorrect logic. Requiring a human Tech Lead to review the Pull Request ensures code quality, validates architectural decisions, and prevents unexpected infrastructure downtime.
 
 **Why dry run is the default state.** Running automated scripts against production environments carries high risk. Defaulting to a safe evaluation mode protects the infrastructure while proving the script's intended path.
 
+**Why strict QA constraints for the agent.** Left unchecked, LLMs write overly defensive, heavily commented "slop". The agent here is forced to pass AST parsing and regex checks to ensure the code looks and acts like it was written by a senior human engineer.
+
 ---
 
 ## What I Learned
 
-- Designing strict constraints for automated agents yields significantly safer code than open ended prompts.
-- Separating the generation engine (private) from the final portfolio (public) protects intellectual property while demonstrating verifiable engineering capabilities.
+- Designing strict constraints and feedback loops for automated agents yields significantly safer code than open ended prompts.
+- Separating the generation engine (private Azure backend) from the final portfolio (public GitHub repo) protects intellectual property while demonstrating verifiable engineering capabilities.
 
 ---
 
