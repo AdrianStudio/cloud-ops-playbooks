@@ -30,7 +30,8 @@ I act as the Tech Lead. I review the logic, verify the safety, and merge the cod
 
 ## Architecture
 
-<img width="1677" height="711" alt="image" src="https://github.com/user-attachments/assets/28b0ce51-7a65-489f-a121-d3de85aa3e05" />
+<img width="1677" height="711" alt="image" src="https://github.com/user-attachments/assets/270d94ff-654b-4172-9c00-10ae0047ebd4" />
+
 
 
 This repository serves as the public output state for the private Azure architecture. The external intelligence pipeline evaluates real world technical pain points, triggers the automated engineer agent, and opens a Pull Request. The human Tech Lead reviews, tests, and merges the final solution.
