@@ -1,92 +1,57 @@
-![Platform](https://img.shields.io/badge/Microsoft-Azure-0078D4?logo=microsoftazure&logoColor=white)
-![Component](https://img.shields.io/badge/Azure-Functions-0062AD?logo=azurefunctions&logoColor=white)
-![Language](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
-![CI](https://github.com/AdrianStudio/cloud-ops-playbooks/actions/workflows/ci.yml/badge.svg)
-![Status](https://img.shields.io/badge/Status-In%20Progress-orange)
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform%20%2F%20OpenTofu-IaC-7B42BC?logo=terraform&logoColor=white)
+![PowerShell](https://img.shields.io/badge/PowerShell-Automation-5391FE?logo=powershell&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-# cloud-ops-playbooks
+# open-source-solutions
 
-Automated remediation scripts, Terraform modules, and infrastructure playbooks for common Cloud and Sysadmin pain points. Designed by autonomous agents and merged by a human Tech Lead.
+Production-ready remediation scripts, Terraform/OpenTofu modules, and operational playbooks for real-world Cloud, DevOps, and Sysadmin problems.
 
-Can an AI agent read a Sysadmin's complaint on Reddit and write a production ready mitigation script before the human finishes their coffee?
-
-Spoiler: yes, if you constrain it strictly enough.
+Every solution in this repository starts from an actual operational pain point—either surfaced from technical communities or submitted directly via [fubanx.com](https://fubanx.com)—and is generated, statically audited, and manually reviewed before being merged.
 
 ---
 
-## Why This Exists
+## What's Inside
 
-I did not build this repository out of boredom. I built it to solve a specific friction I saw in the tech landscape. 
-
-On one side, Sysadmins and Cloud Engineers on communities like Reddit and Hacker News are drowning in real, immediate problems: sudden zero day CVEs, active directory nightmares, and infrastructure misconfigurations. On the other side, the internet is flooded with generic, low effort AI code that breaks in production or ignores basic security practices.
-
-**The Idea:** I wanted to bridge that gap. I wondered if I could build a completely autonomous "virtual office" that listens to the internet, identifies high friction technical pain points, and acts as a dedicated DevOps Engineer to solve them. 
-
-**The Execution:** I built a private Azure Serverless backend (FUBANX) that runs daily. It ingests thousands of posts, filters out the noise, and scores the "pain level" of each problem. If a problem scores an 8 or higher, my autonomous Agent Engineer kicks in. It decides on the best tool (Python, Terraform, or PowerShell), writes the code, audits itself through a strict QA loop to remove "AI smells", and opens a Pull Request here. 
-
-I act as the Tech Lead. I review the logic, verify the safety, and merge the code.
-
----
-
-## Architecture
-
-<img width="1677" height="711" alt="image" src="https://github.com/user-attachments/assets/270d94ff-654b-4172-9c00-10ae0047ebd4" />
-
-
-
-This repository serves as the public output state for the private Azure architecture. The external intelligence pipeline evaluates real world technical pain points, triggers the automated engineer agent, and opens a Pull Request. The human Tech Lead reviews, tests, and merges the final solution.
-
----
-
-## What I Built
-
-| Component | Resource | Purpose |
+| Directory | Stack | Focus |
 | --- | --- | --- |
-| `scripts/python/` | Python playbooks | Utilities for API interactions and diagnostics, such as CVE mitigation. |
-| `scripts/powershell/` | PowerShell scripts | Windows Server and Active Directory management. |
-| `terraform/modules/` | Terraform code | Reusable IaC components for Azure infrastructure and secure baselines. |
+| `scripts/python/` | Python 3.12 | Cloud API automation, diagnostics, Kubernetes/Azure remediation, and CVE mitigation. |
+| `scripts/powershell/` | PowerShell | Windows Server, Active Directory, and Microsoft 365 administration. |
+| `terraform/modules/` | Terraform / OpenTofu | Reusable IaC modules and hardened cloud baselines. |
 
 ---
 
-## Security
+## Engineering Standards
 
-- **Zero hardcoded credentials.** All scripts expect environment variables or secure credential injection.
-- **Dry run by default.** All destructive scripts require explicit flags (e.g., `--apply`) to execute changes.
-- **Least privilege execution.**
+AI-generated infrastructure code is usually fragile, over-commented, and full of silent fallbacks. Every Pull Request opened here must pass a strict automated QA gate and manual Tech Lead review before merging:
 
----
-
-## CI
-
-The continuous integration workflow runs on every Pull Request. It executes syntax validation for Python (`ruff check`), formatting checks, and Terraform validations (`tofu validate` and `tofu fmt`). It does not deploy resources or execute API calls.
+- **Dry-run by default:** Destructive or state-changing scripts run in safe evaluation mode unless an explicit execution flag (e.g., `--apply`) is passed.
+- **Zero hardcoded credentials:** Secrets and configuration are strictly injected via environment variables or native cloud identity providers.
+- **Fail loudly:** No silent fallbacks or swallowed exceptions (`except KeyError`, hidden defaults on required config). If a dependency or variable is missing, the script exits cleanly with a clear error.
+- **No simulated code:** Placeholder logic, mock responses, and "for demonstration" blocks are automatically rejected by AST and static checks.
 
 ---
 
-## Design Decisions
+## How These Solutions Are Built
 
-**Why manual review instead of automatic merges.** Autonomous systems can generate confident but incorrect logic. Requiring a human Tech Lead to review the Pull Request ensures code quality, validates architectural decisions, and prevents unexpected infrastructure downtime.
+This repository is the public output catalog of [**FUBANX**](https://github.com/AdrianStudio/fubanx), an event-driven engineering system built on Azure Functions, Storage Queues, and OpenTofu.
 
-**Why dry run is the default state.** Running automated scripts against production environments carries high risk. Defaulting to a safe evaluation mode protects the infrastructure while proving the script's intended path.
+1. **Triage:** Real operational issues are triaged by a human engineer via Discord to filter noise and prevent prompt injection.
+2. **Engineering & QA:** An automated engineering agent writes the solution in Python, Terraform, or PowerShell and iterates against a strict static QA loop until all security and code-quality checks pass.
+3. **Human Review:** The agent opens a Pull Request here. Nothing is auto-merged—every line is reviewed before hitting `main`.
 
-**Why strict QA constraints for the agent.** Left unchecked, LLMs write overly defensive, heavily commented "slop". The agent here is forced to pass AST parsing and regex checks to ensure the code looks and acts like it was written by a senior human engineer.
-
----
-
-## What I Learned
-
-- Designing strict constraints and feedback loops for automated agents yields significantly safer code than open ended prompts.
-- Separating the generation engine (private Azure backend) from the final portfolio (public GitHub repo) protects intellectual property while demonstrating verifiable engineering capabilities.
+Want to see how the engine works under the hood? Check out the main repository: **[AdrianStudio/fubanx](https://github.com/AdrianStudio/fubanx)**.
 
 ---
 
-## Project Context
+## Have an Operational Pain Point?
 
-This repository is the public showcase driven by the private FUBANX autonomous agent system, designed to identify and resolve high friction operations in the Sysadmin and DevOps spaces.
+If you are dealing with a repetitive Cloud, Kubernetes, or Sysadmin issue that deserves a clean automation script, you can submit it directly at **[fubanx.com](https://fubanx.com)**.
 
 ---
 
 ## Author
 
-Adrian Tamargo
-
-[GitHub](https://github.com/AdrianStudio) · [LinkedIn](https://www.linkedin.com/in/adrian-tamargo/)
+**Adrián Tamargo**  
+[GitHub](https://github.com/AdrianStudio) · [LinkedIn](https://www.linkedin.com/in/adrian-tamargo/) · [fubanx.com](https://fubanx.com)
