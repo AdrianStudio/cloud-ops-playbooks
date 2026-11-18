@@ -1,4 +1,4 @@
-# monitor-script-integrity
+# script-integrity-monitor
 Monitors the integrity of specified third-party scripts by comparing their current hash with a known good hash.
 
 ## Problem
@@ -14,8 +14,8 @@ Malware injection via third-party CDNs, like the recent Optimizely incident, com
 ## Usage
 ```bash
 # Report-only run: checks script integrity and prints status to console
-python monitor_script_integrity.py
+python script_integrity_monitor.py
 
 # Run with alerts: checks script integrity and sends alerts to webhook if compromised
-python monitor_script_integrity.py --apply
+python script_integrity_monitor.py --apply
 ```

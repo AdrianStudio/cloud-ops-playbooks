@@ -8,17 +8,25 @@
 
 Production-ready remediation scripts, Terraform/OpenTofu modules, and operational playbooks for real-world Cloud, DevOps, and Sysadmin problems.
 
-Every solution in this repository starts from an actual operational pain point—either surfaced from technical communities or submitted directly via [fubanx.com](https://fubanx.com)—and is generated, statically audited, and manually reviewed before being merged.
+Every solution in this repository starts from an actual operational pain point, either surfaced from technical communities or submitted directly via [fubanx.com](https://fubanx.com), and is generated, statically audited, and manually reviewed before being merged.
 
 ---
 
 ## What's Inside
 
+Every solution lives in its own folder, with the code and a README covering the problem, prerequisites and usage:
+
+```text
+<stack>/<category>/<short-project-name>/
+```
+
 | Directory | Stack | Focus |
 | --- | --- | --- |
-| `scripts/python/` | Python 3.12 | Cloud API automation, diagnostics, Kubernetes/Azure remediation, and CVE mitigation. |
-| `scripts/powershell/` | PowerShell | Windows Server, Active Directory, and Microsoft 365 administration. |
-| `terraform/modules/` | Terraform / OpenTofu | Reusable IaC modules and hardened cloud baselines. |
+| `python/` | Python 3.12 | Cloud API automation, diagnostics, Kubernetes/Azure remediation, and CVE mitigation. |
+| `powershell/` | PowerShell | Windows Server, Active Directory, and Microsoft 365 administration. |
+| `terraform/` | Terraform / OpenTofu | Reusable IaC modules and hardened cloud baselines. |
+
+Categories: `security`, `windows`, `cloud`, `kubernetes`, `networking`, `monitoring`.
 
 ---
 
@@ -39,7 +47,7 @@ This repository is the public output catalog of [**FUBANX**](https://github.com/
 
 1. **Triage:** Real operational issues are triaged by a human engineer via Discord to filter noise and prevent prompt injection.
 2. **Engineering & QA:** An automated engineering agent writes the solution in Python, Terraform, or PowerShell and iterates against a strict static QA loop until all security and code-quality checks pass.
-3. **Human Review:** The agent opens a Pull Request here. Nothing is auto-merged—every line is reviewed before hitting `main`.
+3. **Human Review:** The agent opens a Pull Request here. Nothing is auto-merged: every line is reviewed before hitting `main`.
 
 Want to see how the engine works under the hood? Check out the main repository: **[AdrianStudio/fubanx](https://github.com/AdrianStudio/fubanx)**.
 

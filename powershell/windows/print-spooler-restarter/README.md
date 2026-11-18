@@ -1,4 +1,4 @@
-# Restart-PrintSpooler
+# print-spooler-restarter
 Restarts the Print Spooler service on a remote computer.
 
 ## Problem
@@ -11,9 +11,10 @@ Clients with many printers often experience frequent printing issues, leading to
 *   PowerShell 7 or later.
 
 ## Usage
+The script defines the `Restart-PrintSpooler` function. Load it into the session, then call it:
+
 ```powershell
-./Restart-PrintSpooler.ps1 -ComputerName 'ClientPC01'
-```
-```powershell
-./Restart-PrintSpooler.ps1 -ComputerName 'ClientPC01' -Apply
+. ./print-spooler-restarter.ps1
+Restart-PrintSpooler -ComputerName 'ClientPC01'
+Restart-PrintSpooler -ComputerName 'ClientPC01' -Apply
 ```

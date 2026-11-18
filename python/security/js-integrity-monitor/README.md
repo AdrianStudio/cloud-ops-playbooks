@@ -1,4 +1,4 @@
-# monitor-javascript-integrity
+# js-integrity-monitor
 Monitors the integrity of specified JavaScript files by comparing their current hash against a known good hash.
 
 ## Problem
@@ -15,10 +15,10 @@ Third-party JavaScript tags, often loaded from CDNs, are susceptible to supply c
 # Report only (default behavior)
 export SCRIPT_URLS="https://example.com/script.js,https://cdn.thirdparty.com/lib.js"
 export HASH_FILE_PATH="./known_hashes.json"
-python monitor_javascript_integrity.py
+python js_integrity_monitor.py
 
 # Update known hashes (after verifying legitimate changes)
 export SCRIPT_URLS="https://example.com/script.js,https://cdn.thirdparty.com/lib.js"
 export HASH_FILE_PATH="./known_hashes.json"
-python monitor_javascript_integrity.py --apply
+python js_integrity_monitor.py --apply
 ```

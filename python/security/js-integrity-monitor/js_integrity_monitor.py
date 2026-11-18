@@ -6,8 +6,8 @@ Requires the following environment variables:
 - HASH_FILE_PATH: Path to a JSON file storing known good hashes.
 
 Usage:
-    python monitor_javascript_integrity.py
-    python monitor_javascript_integrity.py --apply
+    python js_integrity_monitor.py
+    python js_integrity_monitor.py --apply
 """
 
 import argparse
