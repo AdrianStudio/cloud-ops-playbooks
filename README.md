@@ -4,7 +4,7 @@
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-# open-source-solutions
+# fubanx-solutions
 
 Production-ready remediation scripts, Terraform/OpenTofu modules, and operational playbooks for real-world Cloud, DevOps, and Sysadmin problems.
 
